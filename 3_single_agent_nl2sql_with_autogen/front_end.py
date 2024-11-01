@@ -142,5 +142,4 @@ if user_input:
     st.session_state['display_data'] = data
 
 st.session_state['history'] = history
-# print("question_count at the end of interaction ", question_count)
 st.session_state['question_count'] = question_count

@@ -3,14 +3,11 @@ import json
 import os
 import sqlparse
 from autogen import UserProxyAgent, AssistantAgent, register_function
-from .base_agent_creation_strategy import BaseAgentCreationStrategy
+from orchestration.base_agent_creation_strategy import BaseAgentCreationStrategy
 from typing import Optional, List, Dict, Union
 from pydantic import BaseModel
 import sqlite3
-import struct
-import pyodbc
 
-IS_AZURE = False
 
 # Define Pydantic models for the return types
 class SchemaInfo(BaseModel):
@@ -40,41 +37,18 @@ class NL2SQLAgentCreationStrategy(BaseAgentCreationStrategy):
         with open(data_dictionary_path, 'r') as f:
             self.data_dictionary = json.load(f)
 
-        # Initialize the database connection
-        self.sql_config = {
-            'server': os.environ.get('SQL_DATABASE_SERVER', 'replace_with_database_server_name'),
-            'database': '/Users/ashique/Downloads/sales_database_with_data.db'#os.environ.get('SQL_DATABASE_NAME', '/Users/ashique/Downloads/sales_database_with_data.db')
-        }
+        self.database = '/Users/ashique/Downloads/sales_database_with_data.db'
         self.connection = self.create_connection()
         self.cursor = self.connection.cursor()
     
     def create_connection(self):
 
-        server = self.sql_config['server']
-        database = self.sql_config['database']
-
-        if IS_AZURE:
-            # Obtain token using DefaultAzureCredential
-            credential = DefaultAzureCredential(exclude_interactive_browser_credential=False)
-            token_bytes = credential.get_token("https://database.windows.net/.default").token.encode("UTF-16-LE")
-            token_struct = struct.pack(f'<I{len(token_bytes)}s', len(token_bytes), token_bytes)
-            connection_string = f"Driver={{ODBC Driver 18 for SQL Server}};Server=tcp:{server},1433;Database={database};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30"
-
-            try:
-                # Establish a connection using the token
-                SQL_COPT_SS_ACCESS_TOKEN = 1256  # This connection option is defined by Microsoft in msodbcsql.h
-                connection = pyodbc.connect(connection_string, attrs_before={SQL_COPT_SS_ACCESS_TOKEN: token_struct})
-                return connection
-            except Exception as e:
-                logging.error(f"Failed to connect to database: {e}")
-                raise
-        else:
-            try:
-                connection = sqlite3.connect(database)
-                return connection
-            except Exception as e:
-                print("#####")
-                logging.err
+        try:
+            connection = sqlite3.connect(self.database)
+            return connection
+        except Exception as e:
+            print("#####")
+            logging.err
 
         
     
