@@ -1,9 +1,5 @@
 import os
-<<<<<<< HEAD
-from openai import AzureOpenAI
-=======
 from openai import AzureOpenAI,OpenAI
->>>>>>> b6480c1 (initial push)
 from sqlalchemy import create_engine  
 
 MAX_RUN_PER_QUESTION = 8
