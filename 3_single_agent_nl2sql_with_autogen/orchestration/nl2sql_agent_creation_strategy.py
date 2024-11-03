@@ -37,7 +37,7 @@ class NL2SQLAgentCreationStrategy(BaseAgentCreationStrategy):
         with open(data_dictionary_path, 'r') as f:
             self.data_dictionary = json.load(f)
 
-        self.database = '/Users/ashique/Downloads/sales_database_with_data.db'
+        self.database = 'data/northwind.db'
         self.connection = self.create_connection()
         self.cursor = self.connection.cursor()
     

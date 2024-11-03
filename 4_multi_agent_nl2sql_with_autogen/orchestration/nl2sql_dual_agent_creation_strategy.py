@@ -38,7 +38,7 @@ class NL2SQLAgentCreationStrategy(BaseAgentCreationStrategy):
         with open(data_dictionary_path, 'r') as f:
             self.data_dictionary = json.load(f)
 
-        self.database = '/Users/ashique/Downloads/sales_database_with_data.db'
+        self.database = 'data/northwind.db'
         self.connection = self.create_connection()
         self.cursor = self.connection.cursor()
     
@@ -89,7 +89,7 @@ class NL2SQLAgentCreationStrategy(BaseAgentCreationStrategy):
             human_input_mode="NEVER",
             llm_config=llm_config
         )
-
+        
         # def get_schema_info(table_name: Optional[str] = None, column_name: Optional[str] = None) -> SchemaInfo:
         #     return self._get_schema_info(table_name, column_name)
 
@@ -152,7 +152,7 @@ class NL2SQLAgentCreationStrategy(BaseAgentCreationStrategy):
             caller=assistant,
             executor=user_proxy,
             name="get_all_tables_info",
-            description="Retrieve schema information from the data dictionary. Provide table_name or column_name to get information about the table or column."
+            description="Retrieve table information from the data dictionary. Provide table_name or column_name to get information about the table or column."
         )
 
         register_function(
@@ -189,8 +189,8 @@ class NL2SQLAgentCreationStrategy(BaseAgentCreationStrategy):
 
         # Define allowed transitions between agents
         allowed_transitions = {
-            advisor: [user_proxy, assistant],
             user_proxy: [assistant],
+            advisor: [user_proxy, assistant],
             assistant: [advisor, user_proxy],
         }
         

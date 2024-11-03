@@ -44,10 +44,9 @@ class Orchestrator:
         groupchat = autogen.GroupChat(
             agents=agents,
             allowed_or_disallowed_speaker_transitions=agent_config["transitions"],
-            speaker_transitions_type=agent_config["transitions_type"],
+            speaker_transitions_type='allowed',
             messages=[],
             max_round=self.max_rounds,
-            send_introductions=True
         )
         logging.info(f"[orchestrator] {self.short_id} Creating group chat manager.")
         manager = autogen.GroupChatManager(
