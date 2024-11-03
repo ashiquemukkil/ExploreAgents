@@ -9,9 +9,8 @@ import warnings
 from .nl2sql_dual_agent_creation_strategy import NL2SQLAgentCreationStrategy
 from configs import (
     MAX_ROUNDS,
-    AZURE_OPENAI_KEY,
-    AZURE_OPENAI_RESOURCE,
-    AZURE_OPENAI_API_VERSION
+    OPENAI_KEY,
+    OPENAI_CHATGPT_DEPLOYMENT
 )
 
 class Orchestrator:
@@ -98,11 +97,8 @@ class Orchestrator:
         self.llm_config = {
             "config_list": [
                 {
-                    "model": "chat",
-                    "api_key": AZURE_OPENAI_KEY,
-                    "base_url": f"https://{AZURE_OPENAI_RESOURCE}.openai.azure.com",
-                    "api_type": "azure",
-                    "api_version": AZURE_OPENAI_API_VERSION
+                    "model": OPENAI_CHATGPT_DEPLOYMENT,
+                    "api_key": OPENAI_KEY
                 }
             ],
             "cache_seed": None

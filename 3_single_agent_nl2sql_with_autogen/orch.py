@@ -22,3 +22,22 @@ class Smart_Agent():
         
         assistant_response = self.orchestrator.answer(self.conversation,user_input).get('answer')
         return stream,code, self.conversation, assistant_response, data
+def orc(conversation_id,question):
+    client_principal_id = '00000000-0000-0000-0000-000000000000'
+    client_principal_name = 'anonymous'
+
+    client_principal = {
+        'id': client_principal_id,
+        'name': client_principal_name
+    }
+
+    # Call orchestrator
+    if question:
+        orchestrator = Orchestrator(conversation_id)
+        result = orchestrator.answer([],question)
+        return result.get("answer")
+    else:
+        return False
+    
+if __name__ == "__main__":
+    print(orc('djsncd','give top 5 saled product'))

@@ -2,13 +2,11 @@ import logging
 import os
 import tiktoken
 import time
-from openai import AzureOpenAI, RateLimitError
+from openai import AzureOpenAI, RateLimitError,OpenAI
 from configs import (
-    AZURE_OPENAI_API_VERSION,
-    AZURE_OPENAI_EMBEDDING_DEPLOYMENT,
-    AZURE_OPENAI_KEY,
-    AZURE_OPENAI_RESOURCE,
-    AZURE_OPENAI_CHATGPT_DEPLOYMENT
+    OPENAI_EMBEDDING_DEPLOYMENT,
+    OPENAI_KEY,
+    OPENAI_CHATGPT_DEPLOYMENT
 )
 
 MAX_RETRIES = 10 # Maximum number of retries for rate limit errors
@@ -27,14 +25,20 @@ class AzureOpenAIClient:
         Initializes the AzureOpenAI client.
 
         """        
-        self.openai_service_name = AZURE_OPENAI_RESOURCE
-        self.openai_api_base = f"https://{self.openai_service_name}.openai.azure.com"
-        self.openai_api_version = AZURE_OPENAI_API_VERSION
-        self.openai_api_token = AZURE_OPENAI_KEY
+        # self.openai_service_name = AZURE_OPENAI_RESOURCE
+        # self.openai_api_base = f"https://{self.openai_service_name}.openai.azure.com"
+        # self.openai_api_version = AZURE_OPENAI_API_VERSION
+        # self.openai_api_token = AZURE_OPENAI_KEY
 
-        self.client = AzureOpenAI(
-            api_version=self.openai_api_version,
-            azure_endpoint=self.openai_api_base,
+        # self.client = AzureOpenAI(
+        #     api_version=self.openai_api_version,
+        #     azure_endpoint=self.openai_api_base,
+        #     api_key = self.openai_api_token,
+        #     max_retries=MAX_RETRIES
+        # )
+        self.openai_api_token = OPENAI_KEY
+
+        self.client = OpenAI(
             api_key = self.openai_api_token,
             max_retries=MAX_RETRIES
         )
@@ -42,7 +46,7 @@ class AzureOpenAIClient:
     def get_completion(self, prompt, max_tokens=800, retry_after=True):
         one_liner_prompt = prompt.replace('\n', ' ')
         logging.info(f"[aoai] Getting completion for prompt: {one_liner_prompt[:100]}")
-        openai_deployment = AZURE_OPENAI_CHATGPT_DEPLOYMENT
+        openai_deployment = OPENAI_CHATGPT_DEPLOYMENT
 
         # truncate prompt if needed
         prompt = self._truncate_input(prompt, MAX_GPT_MODEL_INPUT_TOKENS)
@@ -83,7 +87,7 @@ class AzureOpenAIClient:
     def get_embeddings(self, text, retry_after=True):
         one_liner_text = text.replace('\n', ' ')
         logging.info(f"[aoai]Getting embeddings for text: {one_liner_text[:100]}")        
-        openai_deployment = AZURE_OPENAI_EMBEDDING_DEPLOYMENT
+        openai_deployment = OPENAI_EMBEDDING_DEPLOYMENT
 
         # summarize in case it is larger than the maximum input tokens
         num_tokens = GptTokenEstimator().estimate_tokens(text)
