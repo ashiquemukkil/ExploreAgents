@@ -1,13 +1,6 @@
 import os
-#1
-# AZURE_OPENAI_RESOURCE = os.environ.get('AZURE_OPENAI_RESOURCE', 'oai0-yohpwy4qqbu36')
-# AZURE_OPENAI_CHATGPT_DEPLOYMENT = os.environ.get('AZURE_OPENAI_CHATGPT_DEPLOYMENT', 'chat')
-# AZURE_OPENAI_API_VERSION = os.environ.get('AZURE_OPENAI_API_VERSION', '2024-02-01')
-# AZURE_OPENAI_KEY = os.environ.get('AZURE_OPENAI_KEY','0d9e4cd9cda546a498eae2dfa811f28')
-# AZURE_OPENAI_EMBEDDING_DEPLOYMENT = "text-embedding-ada-002"
-
 MAX_ROUNDS = int(os.environ.get('AUTOGEN_MAX_ROUNDS', 20))
 
-OPENAI_KEY = os.environ.get('AZURE_OPENAI_KEY','')
-OPENAI_CHATGPT_DEPLOYMENT = os.environ.get('AZURE_OPENAI_CHATGPT_DEPLOYMENT', 'gpt-4o')
-OPENAI_EMBEDDING_DEPLOYMENT = "text-embedding-ada-002"
+OPENAI_KEY = os.environ.get('OPENAI_KEY','')
+OPENAI_CHATGPT_MODEL = os.environ.get('OPENAI_CHATGPT_MODEL', 'gpt-4o')
+OPENAI_EMBEDDING_MODEL = "text-embedding-ada-002"

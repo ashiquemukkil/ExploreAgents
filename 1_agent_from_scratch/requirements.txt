@@ -8,6 +8,6 @@ pyautogen
 aiohttp==3.10.5
 
 # NL2SQL dependencies
-sqlparse==0.5.1
+sqlparse
 pyodbc
 Flask

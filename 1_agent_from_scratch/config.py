@@ -1,6 +1,9 @@
-AZURE_OPENAI_ENDPOINT = "https://oai0-yohpwy4qqbu36.openai.azure.com"
-AZURE_OPENAI_KEY = ""
-# AZURE_CHAT_DEPLOYMENT_NAME = "chat"
+from openai import OpenAI
 
 OPENAI_KEY = ""
-AZURE_CHAT_DEPLOYMENT_NAME = "gpt-4o-mini"
+CHAT_MODEL_NAME = "gpt-4o-mini"
+
+
+client = OpenAI(
+    api_key=OPENAI_KEY
+)

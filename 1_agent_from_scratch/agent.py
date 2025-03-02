@@ -1,6 +1,6 @@
 from typing import Any
 
-from open_ai import client,AZURE_CHAT_DEPLOYMENT_NAME
+from config import client,CHAT_MODEL_NAME
 
 class Agent:
     def __init__(self,system="") -> None:
@@ -17,7 +17,7 @@ class Agent:
 
     def run(self):
         response = client.chat.completions.create(
-            model=AZURE_CHAT_DEPLOYMENT_NAME,
+            model=CHAT_MODEL_NAME,
             messages=self.messages
         )
         return response.choices[0].message.content

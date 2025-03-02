@@ -1,7 +1,7 @@
 import logging
 import os
 
-from connectors import AzureOpenAIClient
+from connectors import OpenAIClient
 
 class BaseAgentCreationStrategy:
     def create_agents(self, llm_config, history):
@@ -24,7 +24,7 @@ class BaseAgentCreationStrategy:
     def _summarize_conversation(self, history: list) -> str:
         """Summarize the conversation history."""
         if history:
-            aoai = AzureOpenAIClient()
+            aoai = OpenAIClient()
             prompt = (
                 "Summarize the conversation provided, identify its main points of discussion "
                 f"and any conclusions that were reached. Conversation history: \n{history}"

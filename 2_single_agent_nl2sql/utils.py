@@ -7,7 +7,7 @@ import inspect
 from io import StringIO  
 import contextlib 
 
-from config import client,OPENAI_GPT4_DEPLOYMENT,engine
+from config import client,OPENAI_GPT4_MODEL,engine
 from prompt import get_system_prompt
 
 
@@ -44,7 +44,7 @@ def retrieve_context(business_concepts):
     sys_msg = get_system_prompt(scenario_list_md)
 
     response = client.chat.completions.create(
-        model=OPENAI_GPT4_DEPLOYMENT, # The deployment name you chose when you deployed the GPT-35-turbo or GPT-4 model.
+        model=OPENAI_GPT4_MODEL, 
         messages=[{"role": "system", "content": sys_msg}, {"role": "user", "content": business_concepts}],
     response_format={"type": "json_object"}
     

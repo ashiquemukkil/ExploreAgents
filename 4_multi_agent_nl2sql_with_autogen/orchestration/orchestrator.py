@@ -10,7 +10,7 @@ from .nl2sql_dual_agent_creation_strategy import NL2SQLAgentCreationStrategy
 from configs import (
     MAX_ROUNDS,
     OPENAI_KEY,
-    OPENAI_CHATGPT_DEPLOYMENT
+    OPENAI_CHATGPT_MODEL
 )
 
 class Orchestrator:
@@ -88,16 +88,14 @@ class Orchestrator:
     ### Utility functions
 
     def _setup_logging(self):
-        """Configure logging for the orchestrator and Azure libraries."""
-        logging.getLogger('azure').setLevel(logging.WARNING)
         logging.basicConfig(level=os.environ.get('LOGLEVEL', 'DEBUG').upper())
 
     def _setup_llm_config(self):
-        """Set up the configuration for Azure OpenAI language model."""
+        """Set up the configuration for OpenAI language model."""
         self.llm_config = {
             "config_list": [
                 {
-                    "model": OPENAI_CHATGPT_DEPLOYMENT,
+                    "model": OPENAI_CHATGPT_MODEL,
                     "api_key": OPENAI_KEY
                 }
             ],

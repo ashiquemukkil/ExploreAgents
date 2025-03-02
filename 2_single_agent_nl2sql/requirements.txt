@@ -1,5 +1,5 @@
-openai==1.35.10
+openai
 pyodbc
-SQLAlchemy==2.0.20
+SQLAlchemy
 pandas
 streamlit==1.31.1

@@ -1,7 +1,7 @@
 import streamlit as st
 from orch import Smart_Agent
 
-st.set_page_config(layout="wide",page_title="Smart Analytic Copilot Demo Application using LLM")
+st.set_page_config(layout="wide",page_title="Demo Application using LLM")
 styl = f"""
 <style>
     .stTextInput {{
@@ -20,8 +20,6 @@ with st.sidebar:
     st.title('Analytic AI Copilot')
     st.markdown('''
     ''')
-    st.checkbox("Show AI Assistant's internal thought process", key='show_internal_thoughts', value=False)
-    st.checkbox("Use GPT-4-vision to comment on graph", key='use_gpt4v', value=False)
 
    
     if st.button('Clear Chat'):
@@ -35,10 +33,7 @@ with st.sidebar:
     st.markdown("""
                 
 ### Sample Questions:  
-1. What were the total sales for each year available in the database?
-2. Who are the top 5 customers by order volume, and what is the total number of orders for each?
-3. What are the top 10 most popular products based on quantity sold?
-4. What are the total sales broken down by country?
+1. Give me top 5 sold product details
                 
 
 
@@ -47,7 +42,7 @@ with st.sidebar:
     st.write('')
     st.write('')
 
-    st.markdown('#### Created by James N., 2024')
+    
     if 'history' not in st.session_state:
         st.session_state['history'] = []
     if 'input' not in st.session_state:

@@ -20,7 +20,7 @@ class Smart_Agent():
         code = ""
         data ={}
         
-        assistant_response = self.orchestrator.answer(self.conversation,user_input).get('answer')
+        assistant_response = self.orchestrator.answer([],user_input).get('answer')
         return stream,code, self.conversation, assistant_response, data
     
 def orc(conversation_id,question):

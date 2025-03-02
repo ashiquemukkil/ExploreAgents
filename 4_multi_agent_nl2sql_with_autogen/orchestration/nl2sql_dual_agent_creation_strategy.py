@@ -34,7 +34,7 @@ class ExecuteSQLResult(BaseModel):
 class NL2SQLAgentCreationStrategy(BaseAgentCreationStrategy):
     def __init__(self):
         # Load the data dictionary JSON file
-        data_dictionary_path = 'config/data_dictionary.json'
+        data_dictionary_path = 'data/data_dictionary.json'
         with open(data_dictionary_path, 'r') as f:
             self.data_dictionary = json.load(f)
 
@@ -45,7 +45,7 @@ class NL2SQLAgentCreationStrategy(BaseAgentCreationStrategy):
     def create_connection(self):
 
         try:
-            connection = sqlite3.connect(self.database)
+            connection = sqlite3.connect(self.database, check_same_thread=False)
             return connection
         except Exception as e:
             print("#####")

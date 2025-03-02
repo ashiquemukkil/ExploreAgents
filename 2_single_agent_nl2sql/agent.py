@@ -1,6 +1,6 @@
 import json
 from config import (
-    OPENAI_GPT4_DEPLOYMENT,MAX_ERROR_RUN,
+    OPENAI_GPT4_MODEL,MAX_ERROR_RUN,
     MAX_RUN_PER_QUESTION,client
 )
 from utils import check_args
@@ -8,7 +8,7 @@ from utils import check_args
 
         
 class Agent():
-    def __init__(self, persona,functions_spec, functions_list, name=None, init_message=None, engine =OPENAI_GPT4_DEPLOYMENT):
+    def __init__(self, persona,functions_spec, functions_list, name=None, init_message=None, engine =OPENAI_GPT4_MODEL):
         if init_message is not None:
             init_hist =[{"role":"system", "content":persona}, {"role":"assistant", "content":init_message}]
         else:
